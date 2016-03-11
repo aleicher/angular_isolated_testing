@@ -18,7 +18,6 @@
              * @returns {number} the total value of all DepotItems
              */
             Depot.prototype.getTotalValue = function () {
-              //  TODO
               var sum = 0;
               for (var i=0; i<this.items.length; i++) {
                 var item = this.items[i];

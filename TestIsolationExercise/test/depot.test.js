@@ -9,10 +9,11 @@ describe('Depot', function () {
     oracle: "US68389X1054"
   };
 
-  var Depot, DepotItem;
-  beforeEach(inject(function (_Depot_, _DepotItem_) {
+  var Depot, DepotItem, StockPriceService;
+  beforeEach(inject(function (_Depot_, _DepotItem_, _StockPriceService_) {
     Depot = _Depot_;
     DepotItem = _DepotItem_;
+    StockPriceService = _StockPriceService_;
   }));
 
   it('should calculate the total value 0 when it is empty', function () {
@@ -24,7 +25,7 @@ describe('Depot', function () {
   });
 
   it('should calculate the total value of one depot item', function () {
-    // TODO Set up a depot with a stub
+    //Set up a depot with a stub
     var stockPriceStub = {
       getStockPrice: function(stockId) {
         return 42;
@@ -33,21 +34,33 @@ describe('Depot', function () {
 
     var depot = new Depot(stockPriceStub);
 
-    // TODO Add one depot item with count 1 to the depot
+    //Add one depot item with count 1 to the depot
     var depotItem = new DepotItem(stockIds.sap, 1);
     depot.add(depotItem);
 
-    // TODO execute the test method
+    //execute the test method
     expect(depot.getTotalValue()).toEqual(42);
   });
 
   it('should calculate the total value of multiple depot items', function () {
-    // TODO Set up mock/stub
+    //Set up mock/stub
+    var mock = sinon.mock(StockPriceService);
+    mock.expects('getStockPrice').withArgs(stockIds.sap).once().returns(42);
+    mock.expects('getStockPrice').withArgs(stockIds.oracle).once().returns(24);
 
-    // TODO Add depot items to depot
+    // create new depot
+    var depot = new Depot(StockPriceService);
 
-    // TODO Execute the test method
+    //Add depot items to depot
+    var sapDepotItem = new DepotItem(stockIds.sap, 2);
+    var oracleDepotItem = new DepotItem(stockIds.oracle, 3);
+    depot.add(sapDepotItem);
+    depot.add(oracleDepotItem);
 
-    // TODO Verify results
+    //Execute the test method
+    expect(depot.getTotalValue()).toEqual(2*42 + 3*24);
+
+    //Verify results
+    mock.verify();
   });
 });
