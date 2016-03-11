@@ -21,7 +21,8 @@
               //  TODO
               var sum = 0;
               for (var i=0; i<this.items.length; i++) {
-                sum += this.items[i].count * this.stockPriceService.getStockPrice(this.items[i].stockId);
+                var item = this.items[i];
+                sum += item.count * this.stockPriceService.getStockPrice(item.stockId);
               }
 
               return sum;
