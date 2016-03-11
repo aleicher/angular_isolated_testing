@@ -16,19 +16,29 @@ describe('Depot', function () {
   }));
 
   it('should calculate the total value 0 when it is empty', function () {
-    // TODO Set up an empty depot
+    //Set up an empty depot
     var depot = new Depot();
 
-    // TODO expect that getTotalValue returns 0
+    //expect that getTotalValue returns 0
     expect(depot.getTotalValue()).toEqual(0);
   });
 
   it('should calculate the total value of one depot item', function () {
     // TODO Set up a depot with a stub
+    var stockPriceStub = {
+      getStockPrice: function(stockId) {
+        return 42;
+      }
+    };
+
+    var depot = new Depot(stockPriceStub);
 
     // TODO Add one depot item with count 1 to the depot
+    var depotItem = new DepotItem(stockIds.sap, 1);
+    depot.add(depotItem);
 
     // TODO execute the test method
+    expect(depot.getTotalValue()).toEqual(42);
   });
 
   it('should calculate the total value of multiple depot items', function () {
