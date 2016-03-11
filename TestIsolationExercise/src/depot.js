@@ -18,7 +18,8 @@
              * @returns {number} the total value of all DepotItems
              */
             Depot.prototype.getTotalValue = function () {
-                // TODO
+              //  TODO
+              return 0;
             };
 
             return Depot;

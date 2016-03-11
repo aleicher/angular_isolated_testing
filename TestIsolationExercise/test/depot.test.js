@@ -17,8 +17,10 @@ describe('Depot', function () {
 
     it('should calculate the total value 0 when it is empty', function () {
         // TODO Set up an empty depot
+        var depot = new Depot();
 
         // TODO expect that getTotalValue returns 0
+        expect(depot.getTotalValue()).toEqual(0);
     });
 
     it('should calculate the total value of one depot item', function () {
